@@ -1,5 +1,4 @@
 import userService from '../services/user.service.js';
-import mongoose from 'mongoose';
 
 const create = async (req, res) => {
   try {
@@ -40,17 +39,7 @@ const findAll = async (req, res) => {
 
 const findById = async (req, res) => {
   try {
-    const id = req.params.id;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).send({ message: 'Invalid ID' });
-    }
-
-    const user = await userService.findByIdService(id);
-
-    if (!user) {
-      return res.status(400).send({ message: 'User not found' });
-    }
+    const { user } = req;
 
     res.send(user);
   } catch (error) {
@@ -61,19 +50,12 @@ const findById = async (req, res) => {
 const update = async (req, res) => {
   try {
     const { name, username, email, password, avatar } = req.body;
+
     if (!name && !username && !email && !password && !avatar) {
       res.status(400).send({ message: 'Fill at least one field for update' });
     }
 
-    const id = req.params.id;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).send({ message: 'Invalid ID' });
-    }
-
-    const user = await userService.findByIdService(id);
-    if (!user) {
-      return res.status(400).send({ message: 'User not found' });
-    }
+    const { id } = req;
 
     await userService.updateService(
       id,
@@ -92,15 +74,7 @@ const update = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    const id = req.params.id;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).send({ message: 'Invalid ID' });
-    }
-
-    const user = await userService.findByIdService(id);
-    if (!user) {
-      return res.status(400).send({ message: 'User not found' });
-    }
+    const { id } = req;
 
     await userService.deleteService(id);
 
