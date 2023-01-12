@@ -12,9 +12,12 @@ const updateService = (id, name, username, email, password, avatar) =>
     { name, username, email, password, avatar }
   );
 
+const deleteService = id => User.findByIdAndDelete(id);
+
 module.exports = {
   createService,
   findAllService,
   findByIdService,
   updateService,
+  deleteService,
 };
