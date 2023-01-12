@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 mongoose.set('strictQuery', false);
 
 const connectDB = () => {
@@ -13,4 +13,4 @@ const connectDB = () => {
     .catch(error => console.log(error));
 };
 
-module.exports = connectDB;
+export default connectDB;
