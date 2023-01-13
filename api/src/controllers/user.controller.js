@@ -10,10 +10,6 @@ const create = async (req, res) => {
 
     const user = await userService.createService(req.body);
 
-    if (!user) {
-      return res.status(400).send({ message: 'Error creating User' });
-    }
-
     res.status(201).send({
       message: 'User created successfully',
       user,
@@ -55,7 +51,7 @@ const update = async (req, res) => {
       res.status(400).send({ message: 'Fill at least one field for update' });
     }
 
-    const { id } = req;
+    const { id } = req.params;
 
     await userService.updateService(
       id,
@@ -74,7 +70,7 @@ const update = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    const { id } = req;
+    const { id } = req.params;
 
     await userService.deleteService(id);
 
