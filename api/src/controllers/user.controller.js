@@ -2,9 +2,9 @@ import userService from '../services/user.service.js';
 
 const create = async (req, res) => {
   try {
-    const { name, username, email, password, avatar } = req.body;
+    const { name, username, email, password } = req.body;
 
-    if (!name || !username || !email || !password || !avatar) {
+    if (!name || !username || !email || !password) {
       res.status(400).send({ message: 'Submit all fields for registration' });
     }
 
@@ -45,22 +45,15 @@ const findById = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const { name, username, email, password, avatar } = req.body;
+    const { name, username, email, password } = req.body;
 
-    if (!name && !username && !email && !password && !avatar) {
+    if (!name && !username && !email && !password) {
       res.status(400).send({ message: 'Fill at least one field for update' });
     }
 
     const { id } = req.params;
 
-    await userService.updateService(
-      id,
-      name,
-      username,
-      email,
-      password,
-      avatar
-    );
+    await userService.updateService(id, name, username, email, password);
 
     res.send({ message: 'User updated successfully' });
   } catch (error) {
