@@ -9,14 +9,14 @@ export const create = async (req, res) => {
       });
     }
 
-    await createService({
+    const news = await createService({
       title,
       text,
       banner,
       user: { _id: '63c555d892c3a92ea365dc69' },
     });
 
-    res.status(201).send('News was created successfully.');
+    res.status(201).send({ message: 'News was created successfully.', news });
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
